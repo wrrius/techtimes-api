@@ -1,0 +1,5 @@
+{
+  "dependencies": {
+    "sls-multi-gateways": "^1.3.0"
+  }
+}
