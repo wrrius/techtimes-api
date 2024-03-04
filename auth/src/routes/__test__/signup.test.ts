@@ -5,7 +5,7 @@ import { app } from '../../app';
 //     return request(app).post('/auth/signup')
 //         .send({
 //             name: "Test Name",
-//             email: 'test@sitechhs.com',
+//             email: 'test@schools.nyc.gov',
 //             password: 'password'
 //         })
 //         .expect(201);
@@ -35,7 +35,7 @@ it('returns a 400 with a missing email, password, or name', async () => {
     await request(app).post('/auth/signup')
         .send({
             name: "Test Name",
-            email: 'test@sitechhs.com',
+            email: 'test@schools.nyc.gov',
         })
         .expect(400);
 
@@ -48,7 +48,7 @@ it('returns a 400 with a missing email, password, or name', async () => {
 
     await request(app).post('/auth/signup')
         .send({
-            email: 'test@sitechhs.com',
+            email: 'test@schools.nyc.gov',
             password: 'password',
         })
         .expect(400);
@@ -58,7 +58,7 @@ it('returns a 400 if signup with existing email is attempted', async () => {
     await request(app).post('/auth/signup')
         .send({
             name: "Test Name",
-            email: 'test@sitechhs.com',
+            email: 'test@schools.nyc.gov',
             password: 'password'
         })
         .expect(201);
@@ -66,7 +66,7 @@ it('returns a 400 if signup with existing email is attempted', async () => {
     await request(app).post('/api/auth/signup')
         .send({
             name: "Test Name",
-            email: 'test@sitechhs.com',
+            email: 'test@schools.nyc.gov',
             password: 'password',
         })
         .expect(400);
@@ -77,7 +77,7 @@ it('returns a 400 if signup with existing email is attempted', async () => {
 //     const response =  await request(app).post('/auth/signup')
 //         .send({
 //             name: "Test Name",
-//             email: 'test@sitechhs.com',
+//             email: 'test@schools.nyc.gov',
 //             password: 'password'
 //         })
 //         .expect(201);

@@ -40,7 +40,7 @@
 //
 // global.signin = async () => {
 //     const name = "Test Name"
-//     const email = "test@sitechhs.com";
+//     const email = "test@schools.nyc.gov";
 //     const password = "password";
 //
 //     const response = await request(slsApp)

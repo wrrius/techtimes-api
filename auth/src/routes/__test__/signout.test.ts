@@ -3,7 +3,7 @@ import request from 'supertest';
 // it('clear the cookie after signing out', async () => {
 //     await request(app).post('/api/auth/signout')
 //         .send({
-//             email: 'test@sitechhs.com',
+//             email: 'test@schools.nyc.gov',
 //             password: 'password'
 //         });
 //

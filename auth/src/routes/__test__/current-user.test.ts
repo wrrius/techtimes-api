@@ -8,7 +8,7 @@ import {app} from "../../app";
 //         .set('Cookie', cookie).send()
 //         .expect(200);
 //
-//     expect(response.body.currentUser.email).toEqual('test@sitechhs.com');
+//     expect(response.body.currentUser.email).toEqual('test@schools.nyc.gov');
 // });
 //
 // it('returns null if not authenticated', async () => {

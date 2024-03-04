@@ -14,7 +14,7 @@ router.post('/auth/signup',
             .notEmpty().withMessage("Name can't be empty"),
         body('email')
             .isEmail().withMessage('Email must be valid')
-            .matches("^[\\w.+\\-]+@sitechhs\\.com$")
+            .matches("^[\\w.+\\-]+@schools\\.nyc\\.gov$")
             .withMessage('Email must be a staten island tech email'),
         body('password')
             .trim()
