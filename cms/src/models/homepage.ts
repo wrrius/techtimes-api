@@ -91,4 +91,5 @@ homepageSchema.statics.build = (attrs: HomepageAttrs) => {
 
 const Homepage = mongoose.model<HomepageDoc, HomepageModel>('Homepage', homepageSchema);
 
+
 export { homepageSchema, Homepage };
