@@ -1,4 +1,3 @@
-stage: local
 port: 5000
 services:
   - srvName: auth

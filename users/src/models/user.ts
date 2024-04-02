@@ -54,6 +54,7 @@ const userSchema = new mongoose.Schema({
     }
 });
 
+mongoose.deleteModel("User")
 const User = mongoose.model<UserDoc, UserModel>('User', userSchema)
 
 export { User };

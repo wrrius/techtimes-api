@@ -89,6 +89,7 @@ homepageSchema.statics.build = (attrs: HomepageAttrs) => {
     return new Homepage(attrs);
 };
 
+mongoose.deleteModel("Homepage")
 const Homepage = mongoose.model<HomepageDoc, HomepageModel>('Homepage', homepageSchema);
 
 

@@ -82,6 +82,7 @@ articleSchema.statics.build = (attrs: ArticleAttrs) => {
     return new Article(attrs);
 };
 
+mongoose.deleteModel("Article")
 const Article = mongoose.model<ArticleDoc, ArticleModel>('Article', articleSchema);
 
 export { articleSchema, Article };
