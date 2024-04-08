@@ -41,5 +41,11 @@ const userSchema = new Schema(
   }
 );
 
+articleSchema.plugin(mongooseSlugPlugin, { tmpl: "<%=title%>" });
+
+articleSchema.statics.build = (attrs) => {
+  return new Article(attrs);
+};
+
 mongoose.deleteModel("User");
 module.exports = mongoose.model("User", userSchema);

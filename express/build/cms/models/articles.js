@@ -59,5 +59,11 @@ const articleSchema = new Schema(
   }
 );
 
+articleSchema.plugin(mongooseSlugPlugin, { tmpl: "<%=title%>" });
+
+articleSchema.statics.build = (attrs) => {
+  return new Article(attrs);
+};
+
 mongoose.deleteModel("Article");
 module.exports = mongoose.model("Article", articleSchema);
