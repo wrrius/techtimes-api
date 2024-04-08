@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
-import Role from "../models/role";
+const Role = require("../models/role");
 
 const userSchema = new Schema(
   {
@@ -41,4 +41,5 @@ const userSchema = new Schema(
   }
 );
 
+mongoose.deleteModel("User");
 module.exports = mongoose.model("User", userSchema);
