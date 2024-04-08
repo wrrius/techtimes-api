@@ -1,5 +1,5 @@
 import express, {Request, Response} from "express";
-import {connectToDatabase} from "../../routes/index";
+import {connectToDatabase} from "../../db";
 import {Homepage} from "../../models/articles/homepage";
 
 
@@ -25,5 +25,5 @@ export const  articlesHomepage = async (req: Request, res: Response) => {
         console.log(error)
     }
     
-});
+};
 
