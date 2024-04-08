@@ -1,6 +1,6 @@
 import express, {Request, Response} from "express";
 import {connectToDatabase} from "../../routes/index";
-import {Homepage} from "../../models/articles/homepage.ts";
+import {Homepage} from "../../models/articles/homepage";
 
 
 
