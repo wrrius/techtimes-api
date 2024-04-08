@@ -59,6 +59,8 @@ const articleSchema = new Schema(
   }
 );
 
+module.exports = mongoose.model("Article", articleSchema);
+
 articleSchema.plugin(mongooseSlugPlugin, { tmpl: "<%=title%>" });
 
 articleSchema.statics.build = (attrs) => {
@@ -66,4 +68,3 @@ articleSchema.statics.build = (attrs) => {
 };
 
 mongoose.deleteModel("Article");
-module.exports = mongoose.model("Article", articleSchema);
