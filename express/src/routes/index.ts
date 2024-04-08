@@ -1,23 +1,14 @@
-import mongoose from 'mongoose';
+import express from 'express'
+const router = express.Router()
 
-let cachedPromise: any = null;
+import { articlesHomepage } from '../middleware/articles/homepage'
+router.get('/articles/homepage', articlesHomepage)
 
-export const connectToDatabase = async  () => {
-    if (!process.env.JWT_KEY){
-        throw new Error('JWT_KEY must be defined')
-    }
+import { articlesIndex } from '../middleware/articles'
+router.get('/articles', articlesIndex)
 
-    if (!process.env.MONGO_URI){
-        throw new Error('MONGO_URI must be defined')
-    }
+import { articlesShow } from '../middleware/articles/show'
+router.get('/articles/:slug', articlesShow)
 
-    if (!cachedPromise) {
-        cachedPromise = mongoose.connect(process.env.MONGO_URI!, {
-            useNewUrlParser: true,
-            useUnifiedTopology: true,
-            useCreateIndex: true
-        });
-    }
-
-    return cachedPromise
-}
+import { authCurrentUser } from '../middleware/auth/current-user'
+router.get('/auth/current-user', authCurrentUser)
