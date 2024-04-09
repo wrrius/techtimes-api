@@ -9,24 +9,27 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.articlesHomepage = void 0;
+exports.authSignUp = void 0;
+const user_1 = require("../../models/auth/user");
+const shared_1 = require("@sitechtimes/shared");
+const verify_1 = require("./services/verify");
 const db_1 = require("../../db");
-const homepage_1 = require("../../models/articles/homepage");
-const articlesHomepage = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+const authSignUp = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         yield (0, db_1.connectToDatabase)();
-        const query = {};
-        if (req.query.category) {
-            query.category = req.query.category.toString();
+        const { name, email, password } = req.body;
+        const existingUser = yield user_1.User.findOne({ email });
+        if (existingUser) {
+            throw new shared_1.BadRequestError('Email is in use');
         }
-        if (req.query.position) {
-            query.position = req.query.position.toString();
-        }
-        const homepages = yield homepage_1.Homepage.find(query);
-        res.send(homepages);
+        const randString = yield verify_1.Verify.generateToken(email);
+        const user = user_1.User.build({ name, email, password, verificationCode: randString });
+        yield user.save();
+        yield verify_1.Verify.sendVerificationEmail(email, randString);
+        res.status(201).send(user.toJSON());
     }
     catch (error) {
         console.log(error);
     }
 });
-exports.articlesHomepage = articlesHomepage;
+exports.authSignUp = authSignUp;

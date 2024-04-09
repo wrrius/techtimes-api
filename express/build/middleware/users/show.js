@@ -9,24 +9,21 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.articlesHomepage = void 0;
+exports.usersShow = void 0;
+const shared_1 = require("@sitechtimes/shared");
+const user_1 = require("../../models/users/user");
 const db_1 = require("../../db");
-const homepage_1 = require("../../models/articles/homepage");
-const articlesHomepage = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+const usersShow = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         yield (0, db_1.connectToDatabase)();
-        const query = {};
-        if (req.query.category) {
-            query.category = req.query.category.toString();
+        const user = yield user_1.User.findById(req.params.id);
+        if (!user) {
+            throw new shared_1.NotFoundError();
         }
-        if (req.query.position) {
-            query.position = req.query.position.toString();
-        }
-        const homepages = yield homepage_1.Homepage.find(query);
-        res.send(homepages);
+        res.send(user);
     }
     catch (error) {
         console.log(error);
     }
 });
-exports.articlesHomepage = articlesHomepage;
+exports.usersShow = usersShow;

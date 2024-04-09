@@ -9,24 +9,18 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.articlesHomepage = void 0;
+exports.usersIndex = void 0;
+const user_1 = require("../../models/users/user");
+const role_1 = require("../../models/users/role");
 const db_1 = require("../../db");
-const homepage_1 = require("../../models/articles/homepage");
-const articlesHomepage = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+const usersIndex = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         yield (0, db_1.connectToDatabase)();
-        const query = {};
-        if (req.query.category) {
-            query.category = req.query.category.toString();
-        }
-        if (req.query.position) {
-            query.position = req.query.position.toString();
-        }
-        const homepages = yield homepage_1.Homepage.find(query);
-        res.send(homepages);
+        const users = yield user_1.User.find({ role: { $ne: role_1.Role.Admin } });
+        res.send(users);
     }
     catch (error) {
         console.log(error);
     }
 });
-exports.articlesHomepage = articlesHomepage;
+exports.usersIndex = usersIndex;

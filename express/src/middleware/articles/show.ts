@@ -22,5 +22,5 @@ export const articlesShow = async (req: Request, res: Response) => {
         console.log(error)
     }
     
-});
+};
 

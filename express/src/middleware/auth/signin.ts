@@ -4,11 +4,11 @@ import jwt from "jsonwebtoken";
 import {validateRequest, BadRequestError} from "@sitechtimes/shared";
 
 import {User} from "../../models/auth/user";
-import {Password} from "../auth/services/password";
+import {Password} from "./services/password";
 import {connectToDatabase} from "../../db";
 
 
-export const authCurrentUser = async (req: Request, res: Response) => {
+export const authSignIn = async (req: Request, res: Response) => {
 
     try {
     await connectToDatabase();
@@ -45,4 +45,4 @@ export const authCurrentUser = async (req: Request, res: Response) => {
         console.log(error)
     }
     
-});
+}

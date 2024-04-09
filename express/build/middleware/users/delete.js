@@ -9,24 +9,22 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.articlesHomepage = void 0;
+exports.usersDelete = void 0;
+const shared_1 = require("@sitechtimes/shared");
+const user_1 = require("../../models/users/user");
 const db_1 = require("../../db");
-const homepage_1 = require("../../models/articles/homepage");
-const articlesHomepage = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+const usersDelete = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         yield (0, db_1.connectToDatabase)();
-        const query = {};
-        if (req.query.category) {
-            query.category = req.query.category.toString();
+        const { id } = req.params;
+        if (req.currentUser.id !== id) {
+            throw new shared_1.NotAuthorizedError();
         }
-        if (req.query.position) {
-            query.position = req.query.position.toString();
-        }
-        const homepages = yield homepage_1.Homepage.find(query);
-        res.send(homepages);
+        yield user_1.User.findByIdAndDelete(id);
+        res.sendStatus(204);
     }
     catch (error) {
         console.log(error);
     }
 });
-exports.articlesHomepage = articlesHomepage;
+exports.usersDelete = usersDelete;

@@ -9,24 +9,29 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.articlesHomepage = void 0;
-const index_1 = require("../../routes/index");
-const homepage_ts_1 = require("../../models/articles/homepage.ts");
-const articlesHomepage = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+exports.articlesIndex = void 0;
+const article_1 = require("../../models/articles/article");
+const db_1 = require("../../db");
+const articlesIndex = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        yield (0, index_1.connectToDatabase)();
-        const query = {};
+        yield (0, db_1.connectToDatabase)();
+        let query = {};
+        let limit = 20;
+        let sortBy = { updatedAt: 1 };
         if (req.query.category) {
             query.category = req.query.category.toString();
         }
-        if (req.query.position) {
-            query.position = req.query.position.toString();
+        if (req.query.q) {
+            limit = Number(req.query.q);
         }
-        const homepages = yield homepage_ts_1.Homepage.find(query);
-        res.send(homepages);
+        if (req.query.sort === "dateDes") {
+            sortBy = { updatedAt: -1 };
+        }
+        const articles = yield article_1.Article.find(query).sort(sortBy).limit(limit);
+        res.status(200).send(articles);
     }
     catch (error) {
         console.log(error);
     }
 });
-exports.articlesHomepage = articlesHomepage;
+exports.articlesIndex = articlesIndex;
