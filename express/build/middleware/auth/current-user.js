@@ -9,24 +9,13 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.articlesHomepage = void 0;
-const db_1 = require("../../db");
-const homepage_1 = require("../../models/articles/homepage");
-const articlesHomepage = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+exports.authCurrentUser = void 0;
+const authCurrentUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        yield (0, db_1.connectToDatabase)();
-        const query = {};
-        if (req.query.category) {
-            query.category = req.query.category.toString();
-        }
-        if (req.query.position) {
-            query.position = req.query.position.toString();
-        }
-        const homepages = yield homepage_1.Homepage.find(query);
-        res.send(homepages);
+        res.send(Object.assign({}, req.currentUser || null));
     }
     catch (error) {
         console.log(error);
     }
 });
-exports.articlesHomepage = articlesHomepage;
+exports.authCurrentUser = authCurrentUser;
