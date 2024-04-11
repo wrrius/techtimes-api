@@ -1,4 +1,4 @@
-import mongoose from 'mongoose';
+import mongoose from "mongoose";
 import {Role} from "./role";
 
 interface UserAttrs {
