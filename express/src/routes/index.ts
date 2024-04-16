@@ -31,7 +31,7 @@ import {authSignOut} from '../middleware/auth/signout'
 router.post('/auth/signout', authSignOut)
 
 import {authSignUp} from '../middleware/auth/signup'
-router.post('/auth/signup',
+router.get('/auth/signup',
 [
     body('name')
         .notEmpty().withMessage("Name can't be empty"),
