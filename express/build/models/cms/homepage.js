@@ -59,5 +59,6 @@ exports.homepageSchema = homepageSchema;
 homepageSchema.statics.build = (attrs) => {
     return new Homepage(attrs);
 };
+mongoose_1.default.deleteModel("Homepage");
 const Homepage = mongoose_1.default.model('Homepage', homepageSchema);
 exports.Homepage = Homepage;

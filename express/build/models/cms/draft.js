@@ -3,9 +3,11 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.Homepage = exports.homepageSchema = void 0;
+exports.Draft = exports.draftSchema = void 0;
 const mongoose_1 = __importDefault(require("mongoose"));
-const homepageSchema = new mongoose_1.default.Schema({
+const draftStatus_1 = require("./draftStatus");
+const category_1 = require("./category");
+const draftSchema = new mongoose_1.default.Schema({
     title: {
         type: String,
         required: true
@@ -15,33 +17,26 @@ const homepageSchema = new mongoose_1.default.Schema({
         default: null,
         required: false
     },
+    imageAlt: {
+        type: String,
+        default: null,
+        required: false
+    },
+    status: {
+        type: String,
+        required: true,
+        default: draftStatus_1.DraftStatus.Draft
+    },
     content: {
         type: String,
         required: true
     },
     category: {
         type: String,
+        default: category_1.Category.Technology,
         required: true
     },
-    user: {
-        id: {
-            type: String,
-            required: true
-        },
-        name: {
-            type: String,
-            required: true
-        },
-        imageUrl: {
-            type: String,
-            required: false
-        },
-    },
-    position: {
-        type: String,
-        required: true
-    },
-    slug: {
+    userId: {
         type: String,
         required: true
     }
@@ -55,9 +50,9 @@ const homepageSchema = new mongoose_1.default.Schema({
         }
     }
 });
-exports.homepageSchema = homepageSchema;
-homepageSchema.statics.build = (attrs) => {
-    return new Homepage(attrs);
+exports.draftSchema = draftSchema;
+draftSchema.statics.build = (attrs) => {
+    return new Draft(attrs);
 };
-const Homepage = mongoose_1.default.model('Homepage', homepageSchema);
-exports.Homepage = Homepage;
+const Draft = mongoose_1.default.model('Draft', draftSchema);
+exports.Draft = Draft;

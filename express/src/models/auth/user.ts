@@ -36,7 +36,7 @@ const userSchema = new mongoose.Schema({
         required: true
     },
     role: {
-        type: Role,
+        type: String,
         default: Role.Writer,
         required: true
     },
@@ -74,7 +74,6 @@ userSchema.statics.build = (attrs: UserAttrs) => {
     return new User(attrs)
 };
 
-mongoose.deleteModel("User")
 const User = mongoose.model<UserDoc, UserModel>('User', userSchema)
 
 export { User };

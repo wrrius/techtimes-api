@@ -49,7 +49,7 @@ const homepageSchema = new mongoose.Schema({
         required: true
     },
     category: {
-        type: Category,
+        type: String,
         required: true
     },
     user: {
@@ -67,7 +67,7 @@ const homepageSchema = new mongoose.Schema({
         },
     },
     position: {
-        type: Position,
+        type: String,
         required: true
     },
     slug: {
@@ -89,7 +89,6 @@ homepageSchema.statics.build = (attrs: HomepageAttrs) => {
     return new Homepage(attrs);
 };
 
-mongoose.deleteModel("Homepage")
 const Homepage = mongoose.model<HomepageDoc, HomepageModel>('Homepage', homepageSchema);
 
 export { homepageSchema, Homepage };

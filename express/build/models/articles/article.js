@@ -5,7 +5,6 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Article = exports.articleSchema = void 0;
 const mongoose_1 = __importDefault(require("mongoose"));
-const category_1 = require("./category");
 const articleSchema = new mongoose_1.default.Schema({
     title: {
         type: String,
@@ -21,7 +20,7 @@ const articleSchema = new mongoose_1.default.Schema({
         required: true
     },
     category: {
-        type: category_1.Category,
+        type: String,
         required: true
     },
     user: {
@@ -57,6 +56,5 @@ exports.articleSchema = articleSchema;
 articleSchema.statics.build = (attrs) => {
     return new Article(attrs);
 };
-mongoose_1.default.deleteModel("Article");
 const Article = mongoose_1.default.model('Article', articleSchema);
 exports.Article = Article;

@@ -59,3 +59,30 @@ router.get('/users/:id', requireAuth, usersShow)
 
 import {usersUpdate} from '../middleware/users/update'
 router.put('/users/:id', requireAuth, usersUpdate)
+
+import { cmsCategories } from '../middleware/cms/categories'
+router.get('/cms/categories', cmsCategories)
+
+import { cmsDelete } from '../middleware/cms/delete'
+router.delete('/cms/:id/', requireAuth, cmsDelete)
+
+import { cmsIndex } from '../middleware/cms/index'
+router.get('/cms/', requireAuth, cmsIndex)
+
+import { cmsNew } from '../middleware/cms/new'
+router.post('/cms/', requireAuth, cmsNew)
+
+import { cmsPublish } from '../middleware/cms/publish'
+router.post('/cms/:id/publish', requireAuth, roles(['admin']), cmsPublish)
+
+import { cmsReady } from '../middleware/cms/ready'
+router.get('/cms/ready/', requireAuth, roles(['admin']), cmsReady)
+
+import { cmsReview } from '../middleware/cms/review'
+router.get('/cms/review', requireAuth, roles(['editor', 'admin']), cmsReview)
+
+import { cmsShow } from '../middleware/cms/show'
+router.get('/cms/:id', requireAuth, cmsShow)
+
+import { cmsUpdate } from '../middleware/cms/update'
+router.put('/cms/:id/', requireAuth, cmsUpdate)
