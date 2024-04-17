@@ -20,7 +20,7 @@ const userSchema = new mongoose_1.default.Schema({
         required: true
     },
     role: {
-        type: role_1.Role,
+        type: String,
         default: role_1.Role.Writer,
         required: true
     },

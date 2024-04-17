@@ -8,7 +8,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.Draft = exports.draftSchema = void 0;
 const mongoose_1 = __importDefault(require("mongoose"));
 const draftStatus_1 = require("./draftStatus");
-
+const category_1 = require("./category");
 const draftSchema = new mongoose_1.default.Schema(
   {
     title: {
@@ -26,7 +26,7 @@ const draftSchema = new mongoose_1.default.Schema(
       required: false,
     },
     status: {
-      type: draftStatus_1.DraftStatus,
+      type: String,
       required: true,
       default: draftStatus_1.DraftStatus.Draft,
     },
@@ -35,8 +35,8 @@ const draftSchema = new mongoose_1.default.Schema(
       required: true,
     },
     category: {
-      type: Category,
-      default: Category.Technology,
+      type: String,
+      default: category_1.Category.Technology,
       required: true,
     },
     userId: {
@@ -55,12 +55,9 @@ const draftSchema = new mongoose_1.default.Schema(
     },
   }
 );
-
 exports.draftSchema = draftSchema;
 draftSchema.statics.build = (attrs) => {
   return new Draft(attrs);
 };
-
-mongoose_1.default.deleteModel("Draft");
 const Draft = mongoose_1.default.model("Draft", draftSchema);
 exports.Draft = Draft;

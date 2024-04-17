@@ -7,8 +7,6 @@ var __importDefault =
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Homepage = exports.homepageSchema = void 0;
 const mongoose_1 = __importDefault(require("mongoose"));
-const category_1 = require("./category");
-const position_1 = require("./position");
 const homepageSchema = new mongoose_1.default.Schema(
   {
     title: {
@@ -25,7 +23,7 @@ const homepageSchema = new mongoose_1.default.Schema(
       required: true,
     },
     category: {
-      type: category_1.Category,
+      type: String,
       required: true,
     },
     user: {
@@ -43,7 +41,7 @@ const homepageSchema = new mongoose_1.default.Schema(
       },
     },
     position: {
-      type: position_1.Position,
+      type: String,
       required: true,
     },
     slug: {

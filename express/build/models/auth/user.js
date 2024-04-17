@@ -30,7 +30,7 @@ const userSchema = new mongoose_1.default.Schema({
         required: true
     },
     role: {
-        type: role_1.Role,
+        type: String,
         default: role_1.Role.Writer,
         required: true
     },
@@ -66,6 +66,5 @@ userSchema.pre('save', function (done) {
 userSchema.statics.build = (attrs) => {
     return new User(attrs);
 };
-mongoose_1.default.deleteModel("User");
 const User = mongoose_1.default.model('User', userSchema);
 exports.User = User;

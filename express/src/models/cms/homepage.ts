@@ -1,23 +1,8 @@
 import mongoose from 'mongoose';
 import {Category} from "./category";
+import {Position} from "./position";
 
-interface ArticleAttrs {
-    title: string;
-    content: string;
-    imageUrl: string;
-    category: string;
-    user: {
-        id: string;
-        name: string;
-        imageUrl: string;
-    }
-}
-
-interface ArticleModel extends mongoose.Model<ArticleDoc> {
-    build(attrs: ArticleAttrs): ArticleDoc;
-}
-
-export interface ArticleDoc extends mongoose.Document {
+interface HomepageAttrs {
     title: string;
     content: string;
     imageUrl: string;
@@ -27,10 +12,29 @@ export interface ArticleDoc extends mongoose.Document {
         name: string;
         imageUrl: string;
     },
+    position: Position;
     slug: string;
 }
 
-const articleSchema = new mongoose.Schema({
+interface HomepageModel extends mongoose.Model<HomepageDoc> {
+    build(attrs: HomepageAttrs): HomepageDoc;
+}
+
+export interface HomepageDoc extends mongoose.Document {
+    title: string;
+    content: string;
+    imageUrl: string;
+    category: string;
+    user: {
+        id: string;
+        name: string;
+        imageUrl: string;
+    },
+    position: Position;
+    slug: string;
+}
+
+const homepageSchema = new mongoose.Schema({
     title: {
         type: String,
         required: true
@@ -60,7 +64,11 @@ const articleSchema = new mongoose.Schema({
         imageUrl: {
             type: String,
             required: false
-        }
+        },
+    },
+    position: {
+        type: String,
+        required: true
     },
     slug: {
         type: String,
@@ -73,15 +81,16 @@ const articleSchema = new mongoose.Schema({
             ret.id = ret._id;
             delete ret._id;
             delete ret.__v;
-            delete ret.slug_history;
         }
     }
 });
 
-articleSchema.statics.build = (attrs: ArticleAttrs) => {
-    return new Article(attrs);
+homepageSchema.statics.build = (attrs: HomepageAttrs) => {
+    return new Homepage(attrs);
 };
 
-const Article = mongoose.model<ArticleDoc, ArticleModel>('Article', articleSchema);
+mongoose.deleteModel("Homepage")
+const Homepage = mongoose.model<HomepageDoc, HomepageModel>('Homepage', homepageSchema);
 
-export { articleSchema, Article };
+
+export { homepageSchema, Homepage };

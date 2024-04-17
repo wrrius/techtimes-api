@@ -27,7 +27,7 @@ router.post('/auth/signin', [(0, express_validator_1.body)('email')
 const signout_1 = require("../middleware/auth/signout");
 router.post('/auth/signout', signout_1.authSignOut);
 const signup_1 = require("../middleware/auth/signup");
-router.post('/auth/signup', [
+router.get('/auth/signup', [
     (0, express_validator_1.body)('name')
         .notEmpty().withMessage("Name can't be empty"),
     (0, express_validator_1.body)('email')
@@ -49,3 +49,21 @@ const show_2 = require("../middleware/users/show");
 router.get('/users/:id', shared_1.requireAuth, show_2.usersShow);
 const update_1 = require("../middleware/users/update");
 router.put('/users/:id', shared_1.requireAuth, update_1.usersUpdate);
+const categories_1 = require("../middleware/cms/categories");
+router.get('/cms/categories', categories_1.cmsCategories);
+const delete_2 = require("../middleware/cms/delete");
+router.delete('/cms/:id/', shared_1.requireAuth, delete_2.cmsDelete);
+const index_2 = require("../middleware/cms/index");
+router.get('/cms/', shared_1.requireAuth, index_2.cmsIndex);
+const new_1 = require("../middleware/cms/new");
+router.post('/cms/', shared_1.requireAuth, new_1.cmsNew);
+const publish_1 = require("../middleware/cms/publish");
+router.post('/cms/:id/publish', shared_1.requireAuth, (0, shared_1.roles)(['admin']), publish_1.cmsPublish);
+const ready_1 = require("../middleware/cms/ready");
+router.get('/cms/ready/', shared_1.requireAuth, (0, shared_1.roles)(['admin']), ready_1.cmsReady);
+const review_1 = require("../middleware/cms/review");
+router.get('/cms/review', shared_1.requireAuth, (0, shared_1.roles)(['editor', 'admin']), review_1.cmsReview);
+const show_3 = require("../middleware/cms/show");
+router.get('/cms/:id', shared_1.requireAuth, show_3.cmsShow);
+const update_2 = require("../middleware/cms/update");
+router.put('/cms/:id/', shared_1.requireAuth, update_2.cmsUpdate);
