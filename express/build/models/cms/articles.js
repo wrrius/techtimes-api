@@ -1,13 +1,9 @@
-"use strict";
-var __importDefault =
-  (this && this.__importDefault) ||
-  function (mod) {
-    return mod && mod.__esModule ? mod : { default: mod };
-  };
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.Homepage = exports.homepageSchema = void 0;
-const mongoose_1 = __importDefault(require("mongoose"));
-const homepageSchema = new mongoose_1.default.Schema(
+const mongoose = require("mongoose");
+const Schema = mongoose.Schema;
+const mongooseSlugPlugin = require("mongoose-slug-plugin");
+const Category = require("../models/category");
+
+const articleSchema = new Schema(
   {
     title: {
       type: String,
@@ -18,12 +14,17 @@ const homepageSchema = new mongoose_1.default.Schema(
       default: null,
       required: false,
     },
+    imageAlt: {
+      type: String,
+      default: null,
+      required: false,
+    },
     content: {
       type: String,
       required: true,
     },
     category: {
-      type: String,
+      type: Category,
       required: true,
     },
     user: {
@@ -40,10 +41,6 @@ const homepageSchema = new mongoose_1.default.Schema(
         required: false,
       },
     },
-    position: {
-      type: String,
-      required: true,
-    },
     slug: {
       type: String,
       required: true,
@@ -56,13 +53,18 @@ const homepageSchema = new mongoose_1.default.Schema(
         ret.id = ret._id;
         delete ret._id;
         delete ret.__v;
+        delete ret.slug_history;
       },
     },
   }
 );
-exports.homepageSchema = homepageSchema;
-homepageSchema.statics.build = (attrs) => {
-  return new Homepage(attrs);
+
+module.exports = mongoose.model("Article", articleSchema);
+
+articleSchema.plugin(mongooseSlugPlugin, { tmpl: "<%=title%>" });
+
+articleSchema.statics.build = (attrs) => {
+  return new Article(attrs);
 };
-const Homepage = mongoose_1.default.model("Homepage", homepageSchema);
-exports.Homepage = Homepage;
+
+mongoose.deleteModel("Article");
