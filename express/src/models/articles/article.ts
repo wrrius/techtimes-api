@@ -1,5 +1,6 @@
 import mongoose from 'mongoose';
 import {Category} from "./category";
+import { Schema } from 'mongoose';
 
 interface ArticleAttrs {
     title: string;
@@ -30,7 +31,7 @@ export interface ArticleDoc extends mongoose.Document {
     slug: string;
 }
 
-const articleSchema = new mongoose.Schema({
+const articleSchema = new Schema({
     title: {
         type: String,
         required: true
@@ -64,7 +65,7 @@ const articleSchema = new mongoose.Schema({
     },
     slug: {
         type: String,
-        required: true
+        required: false
     }
 }, {
     timestamps: true,
@@ -78,10 +79,9 @@ const articleSchema = new mongoose.Schema({
     }
 });
 
-articleSchema.statics.build = (attrs: ArticleAttrs) => {
-    return new Article(attrs);
-};
+//articleSchema.statics.build = (attrs: ArticleAttrs) => {
+//    return new Article(attrs);
+//};
 
-const Article = mongoose.model<ArticleDoc, ArticleModel>('Article', articleSchema);
+export default mongoose.model('Article', articleSchema)
 
-export { articleSchema, Article };

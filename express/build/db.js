@@ -14,21 +14,30 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.connectToDatabase = void 0;
 const mongoose_1 = __importDefault(require("mongoose"));
-let cachedPromise = null;
-const connectToDatabase = () => __awaiter(void 0, void 0, void 0, function* () {
-    if (!process.env.JWT_KEY) {
-        throw new Error('JWT_KEY must be defined');
-    }
-    if (!process.env.MONGO_URI) {
-        throw new Error('MONGO_URI must be defined');
-    }
-    if (!cachedPromise) {
-        cachedPromise = mongoose_1.default.connect(process.env.MONGO_URI, {
+const dotenv_1 = __importDefault(require("dotenv"));
+dotenv_1.default.config();
+function connectToDatabase() {
+    return __awaiter(this, void 0, void 0, function* () {
+        const opts = {
+            serverSelectionTimeoutMS: 5000, // Timeout after 5s instead of 30s
+            socketTimeoutMS: 45000, // Keep tryings for 45s
+            family: 4, // Use IPv4, skip trying IPv6
             useNewUrlParser: true,
-            useUnifiedTopology: true,
-            useCreateIndex: true
-        });
-    }
-    return cachedPromise;
-});
+            useUnifiedTopology: true
+        };
+        try {
+            yield mongoose_1.default.connect('mongodb+srv://admin:TPbdbGHrTzte1QM2@cluster0.flxw2nh.mongodb.net/', opts);
+            let db = mongoose_1.default.connection;
+            db.on("error", console.error.bind(console, "connection error:"));
+            db.once("open", () => {
+                console.log("MongoDB connected!");
+            });
+            console.log(db.collections);
+        }
+        catch (error) {
+            console.error("MongoDB connection error:", error);
+            throw error;
+        }
+    });
+}
 exports.connectToDatabase = connectToDatabase;

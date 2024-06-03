@@ -5,7 +5,6 @@ import {Homepage} from "../../models/articles/homepage";
 
 
 export const  articlesHomepage = async (req: Request, res: Response) => {
-
     try {
         await connectToDatabase();
 
@@ -24,6 +23,5 @@ export const  articlesHomepage = async (req: Request, res: Response) => {
     } catch (error) {
         console.log(error)
     }
-    
 };
 

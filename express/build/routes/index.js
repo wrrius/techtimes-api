@@ -3,10 +3,12 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.router = void 0;
 const shared_1 = require("@sitechtimes/shared");
 const express_validator_1 = require("express-validator");
 const express_1 = __importDefault(require("express"));
 const router = express_1.default.Router();
+exports.router = router;
 const homepage_1 = require("../middleware/articles/homepage");
 router.get('/articles/homepage', homepage_1.articlesHomepage);
 const articles_1 = require("../middleware/articles");

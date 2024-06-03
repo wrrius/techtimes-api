@@ -86,3 +86,5 @@ router.get('/cms/:id', requireAuth, cmsShow)
 
 import { cmsUpdate } from '../middleware/cms/update'
 router.put('/cms/:id/', requireAuth, cmsUpdate)
+
+export {router}

@@ -3,9 +3,9 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.Article = exports.articleSchema = void 0;
 const mongoose_1 = __importDefault(require("mongoose"));
-const articleSchema = new mongoose_1.default.Schema({
+const mongoose_2 = require("mongoose");
+const articleSchema = new mongoose_2.Schema({
     title: {
         type: String,
         required: true
@@ -39,7 +39,7 @@ const articleSchema = new mongoose_1.default.Schema({
     },
     slug: {
         type: String,
-        required: true
+        required: false
     }
 }, {
     timestamps: true,
@@ -52,9 +52,7 @@ const articleSchema = new mongoose_1.default.Schema({
         }
     }
 });
-exports.articleSchema = articleSchema;
-articleSchema.statics.build = (attrs) => {
-    return new Article(attrs);
-};
-const Article = mongoose_1.default.model('Article', articleSchema);
-exports.Article = Article;
+//articleSchema.statics.build = (attrs: ArticleAttrs) => {
+//    return new Article(attrs);
+//};
+exports.default = mongoose_1.default.model('Article', articleSchema);
