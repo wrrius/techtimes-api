@@ -13,18 +13,15 @@ exports.authSignUp = void 0;
 const user_1 = require("../../models/auth/user");
 const shared_1 = require("@sitechtimes/shared");
 const verify_1 = require("./services/verify");
-const db_1 = require("../../db");
 const authSignUp = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        yield (0, db_1.connectToDatabase)();
         const { name, email, password } = req.body;
         const existingUser = yield user_1.User.findOne({ email });
         if (existingUser) {
             throw new shared_1.BadRequestError('Email is in use');
         }
         const randString = yield verify_1.Verify.generateToken(email);
-        const user = user_1.User.build({ name, email, password, verificationCode: randString });
-        yield user.save();
+        const user = yield user_1.User.create({ name, email, password, verificationCode: randString });
         yield verify_1.Verify.sendVerificationEmail(email, randString);
         res.status(201).send(user.toJSON());
     }

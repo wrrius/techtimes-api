@@ -1,8 +1,10 @@
 import mongoose from 'mongoose';
-import {Category} from "./category";
-import {Position} from "./position";
+/* import {Category} from "./category";
+import {Position} from "./position"; */
+import { Schema } from 'mongoose';
 
-interface HomepageAttrs {
+
+/* interface HomepageAttrs {
     title: string;
     content: string;
     imageUrl: string;
@@ -32,16 +34,15 @@ export interface HomepageDoc extends mongoose.Document {
     },
     position: Position;
     slug: string;
-}
+} */
 
-const homepageSchema = new mongoose.Schema({
+const homepageSchema = new Schema({
     title: {
         type: String,
         required: true
     },
     imageUrl: {
         type: String,
-        default: null,
         required: false
     },
     content: {
@@ -74,21 +75,6 @@ const homepageSchema = new mongoose.Schema({
         type: String,
         required: true
     }
-}, {
-    timestamps: true,
-    toJSON: {
-        transform(doc, ret) {
-            ret.id = ret._id;
-            delete ret._id;
-            delete ret.__v;
-        }
-    }
 });
 
-homepageSchema.statics.build = (attrs: HomepageAttrs) => {
-    return new Homepage(attrs);
-};
-
-const Homepage = mongoose.model<HomepageDoc, HomepageModel>('Homepage', homepageSchema);
-
-export { homepageSchema, Homepage };
+export const Homepage = mongoose.model('Homepage', homepageSchema)

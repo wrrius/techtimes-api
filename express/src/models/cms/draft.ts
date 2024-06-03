@@ -1,8 +1,8 @@
 import mongoose from 'mongoose';
 import {DraftStatus} from "./draftStatus";
-import {Category} from "./category";
+import { Category } from "../articles/category"
 
-interface DraftAttrs {
+/* interface DraftAttrs {
     title: string;
     content: string;
     userId: string;
@@ -21,7 +21,7 @@ export interface DraftDoc extends mongoose.Document {
     status: DraftStatus;
     category: Category;
 }
-
+ */
 const draftSchema = new mongoose.Schema({
     title: {
         type: String,
@@ -55,21 +55,10 @@ const draftSchema = new mongoose.Schema({
         type: String,
         required: true
     }
-}, {
-    timestamps: true,
-    toJSON: {
-        transform(doc, ret) {
-            ret.id = ret._id;
-            delete ret._id;
-            delete ret.__v;
-        }
-    }
 });
 
-draftSchema.statics.build = (attrs: DraftAttrs) => {
+/* draftSchema.statics.build = (attrs: DraftAttrs) => {
     return new Draft(attrs);
-};
+}; */
 
-const Draft = mongoose.model<DraftDoc, DraftModel>('Draft', draftSchema);
-
-export { draftSchema, Draft };
+export const Draft = mongoose.model('Draft', draftSchema)

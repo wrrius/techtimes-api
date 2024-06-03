@@ -1,13 +1,11 @@
 import express, { Request, Response } from 'express';
 import {NotFoundError, requireAuth} from "@sitechtimes/shared";
-import {User} from "../../models/users/user";
-import {connectToDatabase} from "../../db";
+import {User} from "../../models/auth/user";
 
 
 export const usersShow = async (req: Request, res: Response) => {
 
     try {
-        await connectToDatabase();
 
         const user = await User.findById(req.params.id);
     

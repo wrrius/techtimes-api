@@ -3,10 +3,30 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.Draft = exports.draftSchema = void 0;
+exports.Draft = void 0;
 const mongoose_1 = __importDefault(require("mongoose"));
 const draftStatus_1 = require("./draftStatus");
-const category_1 = require("./category");
+const category_1 = require("../articles/category");
+/* interface DraftAttrs {
+    title: string;
+    content: string;
+    userId: string;
+}
+
+interface DraftModel extends mongoose.Model<DraftDoc> {
+    build(attrs: DraftAttrs): DraftDoc;
+}
+
+export interface DraftDoc extends mongoose.Document {
+    title: string;
+    content: string;
+    userId: string;
+    imageUrl: string;
+    imageAlt: string;
+    status: DraftStatus;
+    category: Category;
+}
+ */
 const draftSchema = new mongoose_1.default.Schema({
     title: {
         type: String,
@@ -40,19 +60,8 @@ const draftSchema = new mongoose_1.default.Schema({
         type: String,
         required: true
     }
-}, {
-    timestamps: true,
-    toJSON: {
-        transform(doc, ret) {
-            ret.id = ret._id;
-            delete ret._id;
-            delete ret.__v;
-        }
-    }
 });
-exports.draftSchema = draftSchema;
-draftSchema.statics.build = (attrs) => {
+/* draftSchema.statics.build = (attrs: DraftAttrs) => {
     return new Draft(attrs);
-};
-const Draft = mongoose_1.default.model('Draft', draftSchema);
-exports.Draft = Draft;
+}; */
+exports.Draft = mongoose_1.default.model('Draft', draftSchema);

@@ -17,10 +17,8 @@ const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 const shared_1 = require("@sitechtimes/shared");
 const user_1 = require("../../models/auth/user");
 const password_1 = require("./services/password");
-const db_1 = require("../../db");
 const authSignIn = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        yield (0, db_1.connectToDatabase)();
         const { email, password } = req.body;
         const existingUser = yield user_1.User.findOne({ email });
         if (!existingUser) {

@@ -11,11 +11,9 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.cmsIndex = void 0;
 const draft_1 = require("../../models/cms/draft");
-const db_1 = require("../../db");
 const cmsIndex = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        yield (0, db_1.connectToDatabase)();
-        const drafts = yield draft_1.Draft.find({ userId: req.currentUser.id });
+        const drafts = yield draft_1.Draft.find({ userId: "id" });
         res.send(drafts);
     }
     catch (error) {

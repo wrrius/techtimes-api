@@ -3,13 +3,11 @@ import jwt, {decode} from 'jsonwebtoken';
 
 import {User} from "../../models/auth/user";
 import {BadRequestError, NotFoundError} from "@sitechtimes/shared";
-import {connectToDatabase} from "../../db";
 
 
 export const authVerify = async (req: Request, res: Response) => {
 
     try {
-        await connectToDatabase();
 
         const { token } = req.params;
     

@@ -1,14 +1,12 @@
 import express, { Request, Response } from 'express';
 import {NotAuthorizedError, NotFoundError} from "@sitechtimes/shared";
-import {User} from "../../models/users/user";
-import {Role} from "../../models/users/role";
-import {connectToDatabase} from "../../db";
+import {User} from "../../models/auth/user";
+import {Role} from "../../models/auth/role";
 
 
 export const usersUpdate = async (req: Request, res: Response) => {
 
     try {
-        await connectToDatabase();
 
         const { imageUrl, role } = req.body;
     

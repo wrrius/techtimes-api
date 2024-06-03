@@ -11,7 +11,6 @@ import {connectToDatabase} from "../../db";
 export const authSignIn = async (req: Request, res: Response) => {
 
     try {
-    await connectToDatabase();
     const { email, password } = req.body;
     const existingUser = await User.findOne({ email });
 

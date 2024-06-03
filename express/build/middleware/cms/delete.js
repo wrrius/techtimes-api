@@ -12,10 +12,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.cmsDelete = void 0;
 const shared_1 = require("@sitechtimes/shared");
 const draft_1 = require("../../models/cms/draft");
-const db_1 = require("../../db");
 const cmsDelete = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        yield (0, db_1.connectToDatabase)();
         const draft = yield draft_1.Draft.findByIdAndDelete(req.params.id);
         if (!draft) {
             throw new shared_1.NotFoundError();

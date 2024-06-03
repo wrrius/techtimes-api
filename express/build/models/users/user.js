@@ -1,12 +1,26 @@
 "use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.User = void 0;
-const mongoose_1 = __importDefault(require("mongoose"));
-const role_1 = require("./role");
-const userSchema = new mongoose_1.default.Schema({
+/* import mongoose from 'mongoose';
+import {Role} from "./role";
+
+interface UserAttrs {
+    name: string;
+    email: string;
+    password: string;
+}
+
+interface UserModel extends mongoose.Model<UserDoc> {
+    build(attrs: UserAttrs): UserDoc;
+}
+
+interface UserDoc extends mongoose.Document {
+    name: string;
+    email: string;
+    password: string;
+    role: Role;
+    imageUrl: string;
+}
+
+const userSchema = new mongoose.Schema({
     name: {
         type: String,
         required: true
@@ -15,13 +29,13 @@ const userSchema = new mongoose_1.default.Schema({
         type: String,
         required: true
     },
-    password: {
+    password:{
         type: String,
         required: true
     },
     role: {
         type: String,
-        default: role_1.Role.Writer,
+        default: Role.Writer,
         required: true
     },
     // TODO: change default url
@@ -31,8 +45,8 @@ const userSchema = new mongoose_1.default.Schema({
         required: true
     }
 }, {
-    toJSON: {
-        transform(doc, ret) {
+    toJSON:{
+        transform(doc, ret){
             ret.id = ret._id;
             delete ret._id;
             delete ret.password;
@@ -40,6 +54,9 @@ const userSchema = new mongoose_1.default.Schema({
         }
     }
 });
-mongoose_1.default.deleteModel("User");
-const User = mongoose_1.default.model('User', userSchema);
-exports.User = User;
+
+mongoose.deleteModel("User")
+const User = mongoose.model<UserDoc, UserModel>('User', userSchema)
+
+export { User };
+ */ 

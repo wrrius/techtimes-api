@@ -1,4 +1,4 @@
-export enum Category {
+/* export enum Category {
     COVID = "covid",
     Entertainment ="entertainment",
     World = 'world',
@@ -6,4 +6,4 @@ export enum Category {
     Science ="science",
     Technology = 'technology',
     Sports = 'sports'
-}
+} */

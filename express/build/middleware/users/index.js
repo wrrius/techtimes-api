@@ -10,12 +10,10 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.usersIndex = void 0;
-const user_1 = require("../../models/users/user");
-const role_1 = require("../../models/users/role");
-const db_1 = require("../../db");
+const user_1 = require("../../models/auth/user");
+const role_1 = require("../../models/auth/role");
 const usersIndex = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        yield (0, db_1.connectToDatabase)();
         const users = yield user_1.User.find({ role: { $ne: role_1.Role.Admin } });
         res.send(users);
     }

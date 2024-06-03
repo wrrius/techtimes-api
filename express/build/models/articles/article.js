@@ -3,9 +3,39 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.Article = void 0;
 const mongoose_1 = __importDefault(require("mongoose"));
 const mongoose_2 = require("mongoose");
-const articleSchema = new mongoose_2.Schema({
+/* interface ArticleAttrs {
+    title: string;
+    content: string;
+    imageUrl: string;
+    category: string;
+    user: {
+        id: string;
+        name: string;
+        imageUrl: string;
+    }
+}
+
+interface ArticleModel extends mongoose.Model<ArticleDoc> {
+    build(attrs: ArticleAttrs): ArticleDoc;
+}
+
+export interface ArticleDoc extends mongoose.Document {
+    title: string;
+    content: string;
+    imageUrl: string;
+    category: string;
+    user: {
+        id: string;
+        name: string;
+        imageUrl: string;
+    },
+    slug: string;
+}
+
+const articleSchema = new Schema({
     title: {
         type: String,
         required: true
@@ -51,8 +81,46 @@ const articleSchema = new mongoose_2.Schema({
             delete ret.slug_history;
         }
     }
+}); */
+const articleSchema = new mongoose_2.Schema({
+    title: {
+        type: String,
+        required: true
+    },
+    imageUrl: {
+        type: String,
+        default: null,
+        required: false
+    },
+    content: {
+        type: String,
+        required: true
+    },
+    category: {
+        type: String,
+        required: true
+    },
+    user: {
+        id: {
+            type: String,
+            required: true
+        },
+        name: {
+            type: String,
+            required: true
+        },
+        imageUrl: {
+            type: String,
+            required: false
+        }
+    },
+    slug: {
+        type: String,
+        default: null,
+        required: false
+    }
 });
 //articleSchema.statics.build = (attrs: ArticleAttrs) => {
 //    return new Article(attrs);
 //};
-exports.default = mongoose_1.default.model('Article', articleSchema);
+exports.Article = mongoose_1.default.model('Article', articleSchema);

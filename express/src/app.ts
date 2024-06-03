@@ -15,7 +15,7 @@ import { connectToDatabase } from './db';
 // import * as swaggerDocument from '../swagger.json'
 
 dotenv.config()
-const port = process.env.PORT || 3000
+const port = process.env.PORT || 6000
 
 const app = express();
 app.set('trust proxy', true);
@@ -43,20 +43,14 @@ app.use(currentUser);
 
 // app.use('/api/users/docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
-connectToDatabase()
-
-
-
-
+app.listen(port, async () => {
+  console.log(`Running on ${port}`)
+  await connectToDatabase()
+})
 
 app.use( "/", router)
 
 
-app.listen(port, async () => {
-  console.log(`Running on ${port}`)
-  await connectToDatabase()
-  
-})
 
 app.all('*', (req: Request, res: Response) => {
     throw new NotFoundError();

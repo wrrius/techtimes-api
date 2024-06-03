@@ -11,11 +11,9 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.articlesShow = void 0;
 const article_1 = require("../../models/articles/article");
-const db_1 = require("../../db");
 const shared_1 = require("@sitechtimes/shared");
 const articlesShow = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        yield (0, db_1.connectToDatabase)();
         const { slug } = req.params;
         const article = yield article_1.Article.findOne({ slug });
         if (!article) {

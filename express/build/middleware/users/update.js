@@ -11,12 +11,10 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.usersUpdate = void 0;
 const shared_1 = require("@sitechtimes/shared");
-const user_1 = require("../../models/users/user");
-const role_1 = require("../../models/users/role");
-const db_1 = require("../../db");
+const user_1 = require("../../models/auth/user");
+const role_1 = require("../../models/auth/role");
 const usersUpdate = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        yield (0, db_1.connectToDatabase)();
         const { imageUrl, role } = req.body;
         const user = yield user_1.User.findById(req.params.id);
         if (!user) {

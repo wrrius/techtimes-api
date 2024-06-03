@@ -1,5 +1,5 @@
 import express, {Request, Response} from "express";
-import {Category} from "../../models/cms/category";
+import {Category} from "../../models/articles/category";
 
 
 

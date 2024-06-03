@@ -10,7 +10,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.cmsCategories = void 0;
-const category_1 = require("../../models/cms/category");
+const category_1 = require("../../models/articles/category");
 const cmsCategories = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const categories = Object.values(category_1.Category);

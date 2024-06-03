@@ -9,7 +9,6 @@ import {connectToDatabase} from "../../db";
 export const  cmsReady = async (req: Request, res: Response) => {
 
     try {
-        await connectToDatabase();
 
         const drafts = await Draft.find({ status: DraftStatus.Ready });
     

@@ -1,6 +1,11 @@
-import mongoose from 'mongoose';
-import { Schema } from 'mongoose';
-
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.Article = void 0;
+const mongoose_1 = __importDefault(require("mongoose"));
+const mongoose_2 = require("mongoose");
 /* interface ArticleAttrs {
     title: string;
     content: string;
@@ -77,15 +82,13 @@ const articleSchema = new Schema({
         }
     }
 }); */
-
-const articleSchema = new Schema({
+const ArticleSchema = new mongoose_2.Schema({
     title: {
         type: String,
         required: true
     },
     imageUrl: {
         type: String,
-        default: null,
         required: false
     },
     content: {
@@ -95,8 +98,7 @@ const articleSchema = new Schema({
     category: {
         type: String,
         required: true
-    },    
-    user: {
+    }, user: {
         id: {
             type: String,
             required: true
@@ -112,15 +114,10 @@ const articleSchema = new Schema({
     },
     slug: {
         type: String,
-        default: null,
         required: false
     }
-})
-
+});
 //articleSchema.statics.build = (attrs: ArticleAttrs) => {
 //    return new Article(attrs);
 //};
-
-
-export const Article = mongoose.model('Article', articleSchema)
-
+exports.Article = mongoose_1.default.model('Article', ArticleSchema);

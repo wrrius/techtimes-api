@@ -1,32 +1,25 @@
 import express, {Request, Response} from 'express';
 import {NotFoundError, requireAuth, roles} from "@sitechtimes/shared";
 import mongoose from "mongoose";
-import {connectToDatabase} from "../../db";
 
-import {Homepage} from "../../models/cms/homepage";
-import {Article} from "../../models/cms/article";
+import {Homepage} from "../../models/articles/homepage";
+import {Article} from "../../models/articles/article";
 import {Position} from "../../models/cms/position";
 import {Draft} from "../../models/cms/draft";
+import { User } from '../../models/auth/user';
 
 
 export const  cmsPublish = async (req: Request, res: Response) => {
 
     try {
-        await connectToDatabase();
 
         const draft = await Draft.findById(req.params.id);
     
         if (!draft){
            throw new NotFoundError();
         }
-    
-        const db = mongoose.connection.db.collection('users');
-    
-        const users = await db.find({_id: mongoose.Types.ObjectId(draft.userId)}).toArray();
-    
-        if (!users[0]){
-            throw new NotFoundError();
-        }
+        
+        const users = await User.findById(draft.userId);
     
         const attrs = {
             title: draft.title,
@@ -36,14 +29,13 @@ export const  cmsPublish = async (req: Request, res: Response) => {
             category: draft.category,
             user: {
                 id: draft.userId,
-                name: users[0].name,
-                imageUrl: users[0].imageUrl
+                name: users.name,
+                imageUrl: users.imageUrl
             }
         }
     
-        const article = Article.build({ ...attrs });
+        const article = await Article.create({ ...attrs });
     
-        await article.save();
         await Draft.findByIdAndDelete(req.params.id);
     
     
@@ -51,15 +43,14 @@ export const  cmsPublish = async (req: Request, res: Response) => {
         const isValidPosition = Object.values(Position).includes(req.body.position);
     
         if (isValidPosition) {
-            await Homepage.findOneAndRemove({ position: req.body.position, category: draft.category});
+            await Homepage.findOneAndDelete({ position: req.body.position, category: draft.category});
     
-            const homepage = Homepage.build({
+            await Homepage.create({
                 ...attrs,
                 position: req.body.position,
                 slug: article.slug
             });
     
-            await homepage.save();
         }
     
         res.sendStatus(200);

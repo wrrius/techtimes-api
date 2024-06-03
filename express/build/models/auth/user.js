@@ -16,6 +16,26 @@ exports.User = void 0;
 const mongoose_1 = __importDefault(require("mongoose"));
 const password_1 = require("../../middleware/auth/services/password");
 const role_1 = require("./role");
+/* interface UserAttrs {
+    name: string;
+    email: string;
+    password: string;
+    verificationCode: string;
+}
+
+interface UserModel extends mongoose.Model<UserDoc> {
+    build(attrs: UserAttrs): UserDoc;
+}
+
+interface UserDoc extends mongoose.Document {
+    name: string;
+    email: string;
+    password: string;
+    role: Role;
+    verified: boolean;
+    verificationCode: string;
+}
+ */
 const userSchema = new mongoose_1.default.Schema({
     name: {
         type: String,
@@ -42,16 +62,11 @@ const userSchema = new mongoose_1.default.Schema({
     verificationCode: {
         type: String,
         required: true
-    }
-}, {
-    toJSON: {
-        transform(doc, ret) {
-            ret.id = ret._id;
-            delete ret._id;
-            delete ret.password;
-            delete ret.__v;
-            delete ret.verificationCode;
-        }
+    },
+    imageUrl: {
+        type: String,
+        default: null,
+        required: false
     }
 });
 userSchema.pre('save', function (done) {
@@ -63,8 +78,4 @@ userSchema.pre('save', function (done) {
         done();
     });
 });
-userSchema.statics.build = (attrs) => {
-    return new User(attrs);
-};
-const User = mongoose_1.default.model('User', userSchema);
-exports.User = User;
+exports.User = mongoose_1.default.model('User', userSchema);

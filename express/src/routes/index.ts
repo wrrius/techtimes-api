@@ -37,7 +37,7 @@ router.get('/auth/signup',
         .notEmpty().withMessage("Name can't be empty"),
     body('email')
         .isEmail().withMessage('Email must be valid')
-        .matches("^[\\w.+\\-]+@schools\\.nyc\\.gov$")
+        .matches("^[\\w.+\\-]+@nycstudents\\.net$")
         .withMessage('Email must be a staten island tech email'),
     body('password')
         .trim()

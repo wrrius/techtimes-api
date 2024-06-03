@@ -9,8 +9,6 @@ export const  cmsShow = async (req: Request, res: Response) => {
 
     try {
         const { id } = req.params;
-
-        await connectToDatabase();
     
         const draft = await Draft.findById(id);
     

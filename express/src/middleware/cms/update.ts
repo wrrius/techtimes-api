@@ -10,7 +10,6 @@ import sanitize from "sanitize-html";
 export const  cmsUpdate = async (req: Request, res: Response) => {
 
     try {
-        await connectToDatabase();
 
         const draft = await Draft.findById(req.params.id);
     

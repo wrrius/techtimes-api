@@ -8,9 +8,8 @@ import {connectToDatabase} from "../../db";
 export const  cmsIndex = async (req: Request, res: Response) => {
 
     try {
-        await connectToDatabase();
 
-        const drafts = await Draft.find({ userId: req.currentUser!.id });
+        const drafts = await Draft.find({ userId: "id" });
     
         res.send(drafts);
     } catch (error) {

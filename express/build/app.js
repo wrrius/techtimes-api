@@ -47,7 +47,7 @@ const db_1 = require("./db");
 // import swaggerUi from 'swagger-ui-express';
 // import * as swaggerDocument from '../swagger.json'
 dotenv_1.default.config();
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 6000;
 const app = (0, express_1.default)();
 app.set('trust proxy', true);
 app.set('trust proxy', true);
@@ -65,12 +65,11 @@ app.use(body_parser_1.default.json());
 app.use(body_parser_1.default.urlencoded({ extended: true }));
 app.use(shared_1.currentUser);
 // app.use('/api/users/docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
-(0, db_1.connectToDatabase)();
-app.use("/", routes_1.router);
 app.listen(port, () => __awaiter(void 0, void 0, void 0, function* () {
     console.log(`Running on ${port}`);
     yield (0, db_1.connectToDatabase)();
 }));
+app.use("/", routes_1.router);
 app.all('*', (req, res) => {
     throw new shared_1.NotFoundError();
 });

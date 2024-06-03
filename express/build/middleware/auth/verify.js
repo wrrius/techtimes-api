@@ -36,10 +36,8 @@ exports.authVerify = void 0;
 const jsonwebtoken_1 = __importStar(require("jsonwebtoken"));
 const user_1 = require("../../models/auth/user");
 const shared_1 = require("@sitechtimes/shared");
-const db_1 = require("../../db");
 const authVerify = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        yield (0, db_1.connectToDatabase)();
         const { token } = req.params;
         let user = yield user_1.User.findOne({ verificationCode: token });
         if (!user) {

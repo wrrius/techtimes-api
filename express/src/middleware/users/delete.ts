@@ -1,13 +1,11 @@
 import express, { Request, Response } from 'express';
 import {NotAuthorizedError, requireAuth} from "@sitechtimes/shared";
-import {User} from "../../models/users/user";
-import {connectToDatabase} from "../../db";
+import {User} from "../../models/auth/user";
 
 
 export const usersDelete = async (req: Request, res: Response) => {
 
     try {
-        await connectToDatabase();
 
         const { id } = req.params;
     

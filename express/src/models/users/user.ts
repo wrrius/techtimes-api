@@ -1,4 +1,4 @@
-import mongoose from 'mongoose';
+/* import mongoose from 'mongoose';
 import {Role} from "./role";
 
 interface UserAttrs {
@@ -58,3 +58,4 @@ mongoose.deleteModel("User")
 const User = mongoose.model<UserDoc, UserModel>('User', userSchema)
 
 export { User };
+ */

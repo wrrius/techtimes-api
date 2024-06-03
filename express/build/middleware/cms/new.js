@@ -11,16 +11,13 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.cmsNew = void 0;
 const draft_1 = require("../../models/cms/draft");
-const db_1 = require("../../db");
 const cmsNew = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        yield (0, db_1.connectToDatabase)();
-        const draft = draft_1.Draft.build({
+        const draft = yield draft_1.Draft.create({
             title: 'Untitled',
             content: 'This is where you should write the content of your article ...',
             userId: req.currentUser.id
         });
-        yield draft.save();
         res.status(201).send(draft);
     }
     catch (error) {

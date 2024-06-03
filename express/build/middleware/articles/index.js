@@ -8,30 +8,34 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.articlesIndex = void 0;
-const article_1 = __importDefault(require("../../models/articles/article"));
-const mongoose_1 = __importDefault(require("mongoose"));
+const article_1 = require("../../models/articles/article");
 const articlesIndex = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        console.log();
-        yield article_1.default.create({
-            title: "article 1",
-            content: "content 1",
-            imageUrl: "ImageURL 1",
-            category: "covid",
-            user: {
-                id: "id 1",
-                name: "name 1",
-                imageUrl: "string 1",
-            }
-        });
-        console.log(mongoose_1.default.connection.readyState);
-        const articles = yield article_1.default.find({}); //.find(query).sort(sortBy).limit(limit);
-        console.log(mongoose_1.default.connection.readyState);
+        let query = {};
+        let limit = 20;
+        let sortBy = { updatedAt: 1 };
+        if (req.query.category) {
+            query.category = req.query.category.toString();
+        }
+        if (req.query.q) {
+            limit = Number(req.query.q);
+        }
+        if (req.query.sort === "dateDes") {
+            sortBy = { updatedAt: -1 };
+        }
+        /*         await Article.create({
+                    title: 'evil',
+                    content: 'this one is evil',
+                    category: 'covid',
+                    user: {
+                        id: 'nice',
+                        name: 'nicer',
+                    },
+                    slug: "evil"
+                }) */
+        const articles = yield article_1.Article.find(query).sort(sortBy).limit(limit);
         res.status(200).json(articles);
     }
     catch (error) {

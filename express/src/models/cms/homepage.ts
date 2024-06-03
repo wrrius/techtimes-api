@@ -1,4 +1,4 @@
-import mongoose from 'mongoose';
+/* import mongoose from 'mongoose';
 import {Category} from "./category";
 import {Position} from "./position";
 
@@ -93,4 +93,4 @@ mongoose.deleteModel("Homepage")
 const Homepage = mongoose.model<HomepageDoc, HomepageModel>('Homepage', homepageSchema);
 
 
-export { homepageSchema, Homepage };
+export { homepageSchema, Homepage }; */

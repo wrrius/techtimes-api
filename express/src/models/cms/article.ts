@@ -1,4 +1,4 @@
-import mongoose from 'mongoose';
+/* import mongoose from 'mongoose';
 import {Category} from "./category";
 
 const mongooseSlugPlugin = require('mongoose-slug-plugin')
@@ -96,3 +96,4 @@ mongoose.deleteModel("Article")
 const Article = mongoose.model<ArticleDoc, ArticleModel>('Article', articleSchema);
 
 export { articleSchema, Article };
+ */

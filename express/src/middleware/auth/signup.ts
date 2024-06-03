@@ -4,13 +4,10 @@ import { body } from 'express-validator';
 import {User} from "../../models/auth/user";
 import {validateRequest, BadRequestError} from "@sitechtimes/shared";
 import {Verify} from "./services/verify";
-import {connectToDatabase} from "../../db"
 
 export const authSignUp = async (req: Request, res: Response) => {
 
     try {
-    await connectToDatabase();
-
     const { name, email, password } = req.body;
     const existingUser = await User.findOne({ email });
 
@@ -20,9 +17,7 @@ export const authSignUp = async (req: Request, res: Response) => {
 
     const randString = await Verify.generateToken(email);
 
-    const user = User.build({ name, email, password, verificationCode: randString });
-    await user.save();
-
+    const user = await User.create({ name, email, password, verificationCode: randString });
     await Verify.sendVerificationEmail(email, randString);
 
     res.status(201).send(user.toJSON());

@@ -8,7 +8,6 @@ import {connectToDatabase} from "../../db";
 export const  cmsDelete = async (req: Request, res: Response) => {
 
     try {
-        await connectToDatabase();
 
         const draft = await Draft.findByIdAndDelete(req.params.id);
     

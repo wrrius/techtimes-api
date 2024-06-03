@@ -13,11 +13,9 @@ exports.cmsShow = void 0;
 const shared_1 = require("@sitechtimes/shared");
 const draft_1 = require("../../models/cms/draft");
 const role_1 = require("../../models/cms/role");
-const db_1 = require("../../db");
 const cmsShow = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const { id } = req.params;
-        yield (0, db_1.connectToDatabase)();
         const draft = yield draft_1.Draft.findById(id);
         if (!draft) {
             throw new shared_1.NotFoundError();

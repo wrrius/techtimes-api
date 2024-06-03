@@ -2,7 +2,7 @@ import mongoose from 'mongoose';
 import {Password} from "../../middleware/auth/services/password"
 import {Role} from "./role";
 
-interface UserAttrs {
+/* interface UserAttrs {
     name: string;
     email: string;
     password: string;
@@ -21,7 +21,7 @@ interface UserDoc extends mongoose.Document {
     verified: boolean;
     verificationCode: string;
 }
-
+ */
 const userSchema = new mongoose.Schema({
     name: {
         type: String,
@@ -48,16 +48,11 @@ const userSchema = new mongoose.Schema({
     verificationCode: {
         type: String,
         required: true
-    }
-}, {
-    toJSON:{
-        transform(doc, ret){
-            ret.id = ret._id;
-            delete ret._id;
-            delete ret.password;
-            delete ret.__v;
-            delete ret.verificationCode;
-        }
+    },
+    imageUrl: {
+        type: String,
+        default: null,
+        required: false
     }
 });
 
@@ -70,10 +65,4 @@ userSchema.pre('save', async function (done){
     done();
 });
 
-userSchema.statics.build = (attrs: UserAttrs) => {
-    return new User(attrs)
-};
-
-const User = mongoose.model<UserDoc, UserModel>('User', userSchema)
-
-export { User };
+export const User = mongoose.model('User', userSchema)

@@ -12,10 +12,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.cmsReview = void 0;
 const draft_1 = require("../../models/cms/draft");
 const draftStatus_1 = require("../../models/cms/draftStatus");
-const db_1 = require("../../db");
 const cmsReview = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        yield (0, db_1.connectToDatabase)();
         const drafts = yield draft_1.Draft.find({ status: draftStatus_1.DraftStatus.Review });
         res.send(drafts);
     }

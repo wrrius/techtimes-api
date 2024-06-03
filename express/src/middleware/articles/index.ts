@@ -1,26 +1,35 @@
 import { Request, Response } from 'express';
-import Article  from "../../models/articles/article";
-import mongoose from 'mongoose';
+import { Article } from "../../models/articles/article";
 
 export const articlesIndex = async (req: Request, res: Response) => {
 
     try {
-        console.log()
-       await Article.create(
-            {
-                title: "article 1",
-                content: "content 1",
-                imageUrl: "ImageURL 1",
-                category: "covid",
-                user: {
-                    id: "id 1",
-                    name: "name 1",
-                    imageUrl: "string 1",
-                } 
-            })
-        console.log(mongoose.connection.readyState)
-        const articles = await Article.find({}) //.find(query).sort(sortBy).limit(limit);
-        console.log(mongoose.connection.readyState)
+        let query: any = {};
+        let limit = 20;
+        let sortBy = { updatedAt: 1 };
+    
+        if(req.query.category) {
+            query.category = req.query.category.toString();
+        }
+    
+        if (req.query.q) {
+            limit = Number(req.query.q);
+        }
+    
+        if(req.query.sort === "dateDes") {
+            sortBy = { updatedAt: -1 };
+        }
+/*         await Article.create({
+            title: 'evil',
+            content: 'this one is evil',
+            category: 'covid',    
+            user: {
+                id: 'nice',
+                name: 'nicer',
+            },
+            slug: "evil"
+        }) */
+        const articles = await Article.find(query).sort(sortBy).limit(limit);
         res.status(200).json(articles);
     } catch (error) {
         console.log(error)

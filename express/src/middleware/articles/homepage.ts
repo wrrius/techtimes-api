@@ -1,13 +1,10 @@
-import express, {Request, Response} from "express";
-import {connectToDatabase} from "../../db";
-import {Homepage} from "../../models/articles/homepage";
+import {Request, Response} from "express";
+import { Homepage } from "../../models/articles/homepage";
 
 
 
-export const  articlesHomepage = async (req: Request, res: Response) => {
+export const articlesHomepage = async (req: Request, res: Response) => {
     try {
-        await connectToDatabase();
-
     const query: any = {};
 
     if(req.query.category){
@@ -19,7 +16,7 @@ export const  articlesHomepage = async (req: Request, res: Response) => {
     }
 
     const homepages = await Homepage.find(query);
-    res.send(homepages);
+    res.status(200).json(homepages);
     } catch (error) {
         console.log(error)
     }

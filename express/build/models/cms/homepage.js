@@ -1,11 +1,41 @@
 "use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.Homepage = exports.homepageSchema = void 0;
-const mongoose_1 = __importDefault(require("mongoose"));
-const homepageSchema = new mongoose_1.default.Schema({
+/* import mongoose from 'mongoose';
+import {Category} from "./category";
+import {Position} from "./position";
+
+interface HomepageAttrs {
+    title: string;
+    content: string;
+    imageUrl: string;
+    category: string;
+    user: {
+        id: string;
+        name: string;
+        imageUrl: string;
+    },
+    position: Position;
+    slug: string;
+}
+
+interface HomepageModel extends mongoose.Model<HomepageDoc> {
+    build(attrs: HomepageAttrs): HomepageDoc;
+}
+
+export interface HomepageDoc extends mongoose.Document {
+    title: string;
+    content: string;
+    imageUrl: string;
+    category: string;
+    user: {
+        id: string;
+        name: string;
+        imageUrl: string;
+    },
+    position: Position;
+    slug: string;
+}
+
+const homepageSchema = new mongoose.Schema({
     title: {
         type: String,
         required: true
@@ -55,10 +85,13 @@ const homepageSchema = new mongoose_1.default.Schema({
         }
     }
 });
-exports.homepageSchema = homepageSchema;
-homepageSchema.statics.build = (attrs) => {
+
+homepageSchema.statics.build = (attrs: HomepageAttrs) => {
     return new Homepage(attrs);
 };
-mongoose_1.default.deleteModel("Homepage");
-const Homepage = mongoose_1.default.model('Homepage', homepageSchema);
-exports.Homepage = Homepage;
+
+mongoose.deleteModel("Homepage")
+const Homepage = mongoose.model<HomepageDoc, HomepageModel>('Homepage', homepageSchema);
+
+
+export { homepageSchema, Homepage }; */ 
